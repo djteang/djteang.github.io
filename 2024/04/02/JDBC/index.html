@@ -24,7 +24,7 @@
 
   
 
-  <title>留言板 | Tang-xc的个人博客</title>
+  <title>【JDBC】利用DatabaseMetaData获得表下的所有字段 | Tang-xc的个人博客</title>
 
   
 
@@ -51,9 +51,9 @@
   <div class="root-container">
     
 <!-- header container -->
-<header class="header-container">
+<header class="header-container post">
   
-    <div class="post-image" style="background-image: url(/result8.png)"></div>
+    <div class="post-image" style="background-image: url(/result12.jpg)"></div>
   
 
   <!-- navbar -->
@@ -107,47 +107,95 @@
 
   
   
-
-  
-  
     <div class="header-content">
-      <div class="post-text layout-block layout-padding">
-        <h1 class="title-wrap">留言板</h1>
-        
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">【JDBC】利用DatabaseMetaData获得表下的所有字段</h1>
+          <h2 class="title-sub-wrap">
+            <strong>Tang</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-04-03T03:29:11.405Z" itemprop="datePublished">2024-04-03</time>
+          </h2>
+          
+          
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/%E7%A0%81%E5%86%9C/">📒 码农</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
       </div>
     </div>
+  
+
+  
   
   
 </header>
 
-    <!-- 分页(其他自定义页面) -->
+    <!-- 文章 -->
 
-<!-- 自定义页面 -->
-
+<!-- 文章内容 -->
 <div class="body-container">
   <article class="content-container layout-block post-container">
     <div class="article-info">
       
+      
+      
+      
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="欢迎来到我的博客！"><a href="#欢迎来到我的博客！" class="headerlink" title="欢迎来到我的博客！"></a>欢迎来到我的博客！</h1><blockquote>
-<p>欢迎在这里留言！任何问题都可以在这里留言，我会及时回复的，添加email可以获得更快的回复速度，在nickname栏目输入QQ号可以直接获取你的QQ头像。</p>
-</blockquote>
+        
+    <figure class="figure-image">
+      <img src="/result13.jpg" alt="开心一夏" loading="lazy" />
+      <figcaption>开心一夏</figcaption>
+    </figure>
+  
 
-    <div id="aplayer-gINOzPrv" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="5421903416" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
+    <div id="aplayer-ndqfzEIi" class="aplayer aplayer-tag-marker meting-tag-marker"
+         data-id="2601917974" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
     ></div>
 
 
+<ul>
+<li>【核心语句】<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DatabaseMetaData metaData = conn.getMetaData();</span><br><span class="line">ResultSet rs= metaData.getColumns(null, null, tablename+&quot;%&quot;, null);</span><br></pre></td></tr></table></figure></li>
+<li>重点是第二句的第三参数，如果置空就不分表了，那不是我们想看到的，于是将表名加上通配符%限制一下表的范围，再这样限制表：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while (rs.next()) &#123;</span><br><span class="line">        String tbName = rs.getString(&quot;TABLE_NAME&quot;); // 表名</span><br><span class="line"></span><br><span class="line">        if(tbName.equalsIgnoreCase(tablename))&#123;</span><br><span class="line">                String columnName = rs.getString(&quot;COLUMN_NAME&quot;); // 列名</span><br><span class="line">                ls.add(columnName);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>当取得rs的TABLE_NAME字段后，再限制一次，这下出现的字段就只会是指定表下的了。</li>
+<li>【代码】<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.txc.lab;</span><br><span class="line"></span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.DatabaseMetaData;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Collections;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 此类用于查出某表下的所有字段名称</span><br><span class="line"> */</span><br><span class="line">public class FieldFinder &#123;</span><br><span class="line">    //-- 以下为连接Oracle数据库的四大参数</span><br><span class="line">    private static final String DRIVER = &quot;oracle.jdbc.driver.OracleDriver&quot;;</span><br><span class="line">    private static final String URL = &quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;;</span><br><span class="line">    private static final String USER = &quot;luna&quot;;</span><br><span class="line">    private static final String PSWD = &quot;1234&quot;;</span><br><span class="line"></span><br><span class="line">    public void printFields(String tablename)&#123;</span><br><span class="line">        Connection conn = null;</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            Class.forName(DRIVER);</span><br><span class="line">            conn = DriverManager.getConnection(URL, USER, PSWD);</span><br><span class="line"></span><br><span class="line">            List&lt;String&gt; ls=getFields(conn,tablename);</span><br><span class="line">            Collections.sort(ls);</span><br><span class="line">            ls.stream().forEach(table -&gt; System.out.println(table));</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private List&lt;String&gt; getFields(Connection conn,String tablename) throws Exception&#123;</span><br><span class="line">        DatabaseMetaData metaData = conn.getMetaData();</span><br><span class="line">        ResultSet rs = metaData.getColumns(null, null, tablename+&quot;%&quot;, null);</span><br><span class="line">        List&lt;String&gt; ls=new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        while (rs.next()) &#123;</span><br><span class="line">            String tbName = rs.getString(&quot;TABLE_NAME&quot;); // 表名</span><br><span class="line"></span><br><span class="line">            if(tbName.equalsIgnoreCase(tablename))&#123;</span><br><span class="line">                String columnName = rs.getString(&quot;COLUMN_NAME&quot;); // 列名</span><br><span class="line">                ls.add(columnName);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return ls;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        FieldFinder finder=new FieldFinder();</span><br><span class="line">        finder.printFields(&quot;EMP&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>【参考资料】</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_34793283/article/details/114109394">https://blog.csdn.net/github_34793283/article/details/114109394</a></p>
 
       </section>
 
       
       
-
-      
-      
-        <section class="page-message-container layout-padding">
+        <nav class="article-nav">
           
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+      <div class="card-cover" background-image-lazy data-img="/result9.jpg"></div>
+    
+    <div class="card-text">
+      
+        <a href="/2024/03/28/%E9%9F%B3%E4%B9%90%E9%89%B4%E8%B5%8F/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">音乐鉴赏</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
 
 
   
@@ -365,8 +413,7 @@
   
 
 
-        </section>
-      
+      </section>
     </div>
     <div class="widget-info">
       <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
@@ -403,6 +450,8 @@
     </div>
   </div>
 </section>
+
+      
 
       
 <section class="widet-notice widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
@@ -461,7 +510,6 @@
   </article>
 </div>
 
-
     <!-- footer container -->
 <footer id="footer" class="footer">
   <div class="footer-container">
@@ -517,6 +565,34 @@
 
   
   <!-- aplayer -->
+
+
+  <!-- aplayer 音频 start -->
+  <link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+  <script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript">
+    const aplayer = document.querySelectorAll(".aplayer-box");
+    aplayer && initaplayer(aplayer);
+    function initaplayer(els) {
+      let elsArr = Array.from(els);
+      elsArr.forEach(el => {
+        let params = {
+          container: el,
+          audio: { ...el.dataset },
+          theme: "#b7daff",
+          autoplay: false,
+          loop: false,
+          mutex: true,
+        }
+        if (el.dataset.lrc) {
+          params['lrcType'] = 3
+        }
+        new APlayer(params);
+      });
+    }
+  </script>
+  <!-- aplayer 音频 end -->
+  
 
 
 <!-- dplayer -->
