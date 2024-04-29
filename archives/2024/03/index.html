@@ -37,6 +37,9 @@
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.13/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/monokai.min.css">
+  
 
   
 
@@ -98,7 +101,7 @@
     <div class="header-content">
       <div class="post-text layout-block layout-padding">
         <h1 class="title-wrap">归档</h1>
-        <h2 class="title-sub-wrap">共有6篇文章</h2>
+        <h2 class="title-sub-wrap">共有7篇文章</h2>
       </div>
     </div>
   
@@ -322,6 +325,51 @@
 
 <!-- https://clipboardjs.com/ -->
 
+
+<script type="text/javascript">
+	(function () {
+		function getCodeType (elem) {
+			const classs = Array.from(elem.classList.values());
+			if (classs && classs.length > 1) {
+				return classs[1];
+			}
+			return "plain";
+		}
+
+		window.addEventListener("DOMContentLoaded", () => {
+			const copyBtnClass = "copy-btn";
+			//  instantiate clipboardjs 
+			const clipboard = new ClipboardJS('.' + copyBtnClass);
+
+			clipboard.on('success', function (e) {
+				console.info('Action:', e.action);
+				console.info('Text:', e.text);
+				console.info('Trigger:', e.trigger);
+				if (e.trigger) {
+					e.trigger.classList.add("copied");
+					setTimeout(() => {
+						e.trigger.classList.remove("copied");
+					}, 3000);
+				}
+				e.clearSelection();
+			});
+
+			clipboard.on('error', function (e) {
+				console.error('Action:', e.action);
+				console.error('Trigger:', e.trigger);
+			});
+
+			document.querySelectorAll('figure.highlight').forEach((elem) => {
+				const codeContent = elem.querySelector("td.code");
+				const copyButton = document.createElement('button');
+				copyButton.setAttribute("class", copyBtnClass);
+				copyButton.setAttribute("title", "Copy Code");
+				copyButton.setAttribute("data-clipboard-text", codeContent.innerText);
+				elem.insertBefore(copyButton, elem.children[0]);
+			});
+		})
+	})();
+</script>
 
 
 

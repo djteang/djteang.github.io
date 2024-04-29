@@ -37,6 +37,9 @@
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.13/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/monokai.min.css">
+  
 
   
 
@@ -98,7 +101,7 @@
     <div class="header-content">
       <div class="post-text layout-block layout-padding">
         <h1 class="title-wrap">归档</h1>
-        <h2 class="title-sub-wrap">共有6篇文章</h2>
+        <h2 class="title-sub-wrap">共有7篇文章</h2>
       </div>
     </div>
   
@@ -126,6 +129,35 @@
       <div class="article-item layout-padding">
         <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
           
+            <div class="card-cover" background-image-lazy data-img="/two.jpg"></div>
+          
+
+          <div class="card-text">
+            
+              <a href="/2024/04/28/%E5%88%86%E5%B8%83%E5%BC%8F---%E5%9F%BA%E4%BA%8ERedis%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3IP%E9%99%90%E6%B5%81/" itemprop="url">
+                <h2 class="card-text--title">分布式---基于Redis进行接口IP限流</h2>
+              </a>
+            
+            <div class="card-text--row">
+              <span>发布于</span>
+              <time  class="article-date" datetime="2024-04-29T03:33:23.277Z" itemprop="datePublished">2024-04-29</time>
+            </div>
+            
+            <ul class="wrap-list dark">
+  
+    <li><a href="/categories/%E7%A0%81%E5%86%9C/">📒 码农</a></li>
+  
+</ul>
+            <ul class="wrap-list dark">
+  
+</ul>
+          </div>
+        </article>
+      </div>
+    
+      <div class="article-item layout-padding">
+        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
+          
             <div class="card-cover" background-image-lazy data-img="/one.jpg"></div>
           
 
@@ -139,6 +171,11 @@
               <span>发布于</span>
               <time  class="article-date" datetime="2024-04-10T06:58:38.241Z" itemprop="datePublished">2024-04-10</time>
             </div>
+            
+              <div class="last-time">
+                <span>更新于</span>
+                <time  class="article-updated" datetime="2024-04-29T01:53:09.479Z" itemprop="dateUpdated">2024-04-29</time>
+              </div>
             
             <ul class="wrap-list dark">
   
@@ -168,6 +205,11 @@
               <span>发布于</span>
               <time  class="article-date" datetime="2024-04-03T03:29:11.405Z" itemprop="datePublished">2024-04-03</time>
             </div>
+            
+              <div class="last-time">
+                <span>更新于</span>
+                <time  class="article-updated" datetime="2024-04-28T01:50:19.167Z" itemprop="dateUpdated">2024-04-28</time>
+              </div>
             
             <ul class="wrap-list dark">
   
@@ -253,6 +295,51 @@
 
 <!-- https://clipboardjs.com/ -->
 
+
+<script type="text/javascript">
+	(function () {
+		function getCodeType (elem) {
+			const classs = Array.from(elem.classList.values());
+			if (classs && classs.length > 1) {
+				return classs[1];
+			}
+			return "plain";
+		}
+
+		window.addEventListener("DOMContentLoaded", () => {
+			const copyBtnClass = "copy-btn";
+			//  instantiate clipboardjs 
+			const clipboard = new ClipboardJS('.' + copyBtnClass);
+
+			clipboard.on('success', function (e) {
+				console.info('Action:', e.action);
+				console.info('Text:', e.text);
+				console.info('Trigger:', e.trigger);
+				if (e.trigger) {
+					e.trigger.classList.add("copied");
+					setTimeout(() => {
+						e.trigger.classList.remove("copied");
+					}, 3000);
+				}
+				e.clearSelection();
+			});
+
+			clipboard.on('error', function (e) {
+				console.error('Action:', e.action);
+				console.error('Trigger:', e.trigger);
+			});
+
+			document.querySelectorAll('figure.highlight').forEach((elem) => {
+				const codeContent = elem.querySelector("td.code");
+				const copyButton = document.createElement('button');
+				copyButton.setAttribute("class", copyBtnClass);
+				copyButton.setAttribute("title", "Copy Code");
+				copyButton.setAttribute("data-clipboard-text", codeContent.innerText);
+				elem.insertBefore(copyButton, elem.children[0]);
+			});
+		})
+	})();
+</script>
 
 
 
