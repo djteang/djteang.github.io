@@ -24,7 +24,7 @@
 
   
 
-  <title>【JDBC】利用DatabaseMetaData获得表下的所有字段 | Tang-xc的个人博客</title>
+  <title>格式转换器（pdf与word互转） | Tang-xc的个人博客</title>
 
   
 
@@ -46,9 +46,6 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-<link rel="stylesheet" href="/assets/css/APlayer.min.css" class="aplayer-style-marker">
-<script src="/assets/js/APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="/assets/js/Meting.min.js" class="meting-script-marker"></script>
 </head>
 <body>
   <div class="root-container">
@@ -56,7 +53,7 @@
 <!-- header container -->
 <header class="header-container post">
   
-    <div class="post-image" style="background-image: url(/result12.jpg)"></div>
+    <div class="post-image" style="background-image: url(/word.jpg)"></div>
   
 
   <!-- navbar -->
@@ -113,23 +110,18 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">【JDBC】利用DatabaseMetaData获得表下的所有字段</h1>
+          <h1 class="title-wrap">格式转换器（pdf与word互转）</h1>
           <h2 class="title-sub-wrap">
             <strong>Tang</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2024-04-03T03:29:11.405Z" itemprop="datePublished">2024-04-03</time>
+            <time  class="article-date" datetime="2024-05-10T07:15:03.229Z" itemprop="datePublished">2024-05-10</time>
           </h2>
-          
-            <h2 class="last-time">
-              <span>最后更新于</span>
-              <time  class="article-updated" datetime="2024-04-28T01:50:19.167Z" itemprop="dateUpdated">2024-04-28</time>
-            </h2>
           
     		    <div class="last-time">
               <span>  字数: </span>
-	            <span class="post-count">413字</span>
+	            <span class="post-count">247字</span>
               <span> | 阅读时间: </span>
-	            <span class="post-count">2分</span>
+	            <span class="post-count">1分</span>
           </div>
           
           <ul class="wrap-list dark">
@@ -161,59 +153,36 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        
+        <div class="aplayer-box" data-url='/music/十面埋伏.mp3' data-name='十面埋伏' data-artist='陈奕迅' data-cover='/music/十面埋伏.jpg' data-lrc='/music/十面埋伏.lrc' data-lrcType='3' ></div>
+
+<h3 id="格式转换小工具"><a href="#格式转换小工具" class="headerlink" title="格式转换小工具"></a>格式转换小工具</h3><p>我想大家在生活和工作中会遇到这种问题，你想把一个pdf文件转成word文件或者是（word转pdf），这个时候想必大家都会非常苦恼，奈何网上的一些转换工具都是要收费的，更加让我们苦不堪言。正好我的这个小工具就满足了这种诉求，可以进行pdf转word，word转pdf等。而且还有一个好处是工具是在你的电脑上运行，会更好的保证文件的私密性，不会像在云端上进行格式转换，可能会造成文件的泄露。<br>如果有需要的可以自行下载，网盘提取码是<code>Gs5T</code>。<br><strong>目前工具有个缺点不能进行ocr识别，顾名思义就是不能识别图片里的文字，这个功能后续会完善。</strong><br><code>未完待续...</code></p>
+<p style="color: red;">ps:界面有点low，大家凑合着用</p>
+
+
     <figure class="figure-image">
-      <img src="/result13.jpg" alt="开心一夏" loading="lazy" />
-      <figcaption>开心一夏</figcaption>
+      <img src="/transfer.jpg" alt="格式转换器" loading="lazy" />
+      <figcaption>格式转换器</figcaption>
     </figure>
   
-
-    <div id="aplayer-qVnfcpBN" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="2601917974" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
-    ></div>
-
-
-<ul>
-<li>【核心语句】<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">DatabaseMetaData</span> <span class="hljs-variable">metaData</span> <span class="hljs-operator">=</span> conn.getMetaData();<br>ResultSet rs= metaData.getColumns(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, tablename+<span class="hljs-string">&quot;%&quot;</span>, <span class="hljs-literal">null</span>);<br></code></pre></td></tr></table></figure></li>
-<li>重点是第二句的第三参数，如果置空就不分表了，那不是我们想看到的，于是将表名加上通配符%限制一下表的范围，再这样限制表：<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs abnf">while (rs.next()) &#123;<br>        String tbName <span class="hljs-operator">=</span> rs.getString(<span class="hljs-string">&quot;TABLE_NAME&quot;</span>)<span class="hljs-comment">; // 表名</span><br><br>        if(tbName.equalsIgnoreCase(tablename))&#123;<br>                String columnName <span class="hljs-operator">=</span> rs.getString(<span class="hljs-string">&quot;COLUMN_NAME&quot;</span>)<span class="hljs-comment">; // 列名</span><br>                ls.add(columnName)<span class="hljs-comment">;</span><br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li>当取得rs的TABLE_NAME字段后，再限制一次，这下出现的字段就只会是指定表下的了。</li>
-<li>【代码】<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.txc.lab;<br><br><span class="hljs-keyword">import</span> java.sql.Connection;<br><span class="hljs-keyword">import</span> java.sql.DatabaseMetaData;<br><span class="hljs-keyword">import</span> java.sql.DriverManager;<br><span class="hljs-keyword">import</span> java.sql.ResultSet;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Collections;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 此类用于查出某表下的所有字段名称</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FieldFinder</span> &#123;<br>    <span class="hljs-comment">//-- 以下为连接Oracle数据库的四大参数</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">DRIVER</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;oracle.jdbc.driver.OracleDriver&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">URL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">USER</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;luna&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">PSWD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;1234&quot;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printFields</span><span class="hljs-params">(String tablename)</span>&#123;<br>        <span class="hljs-type">Connection</span> <span class="hljs-variable">conn</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>        <span class="hljs-keyword">try</span>&#123;<br>            Class.forName(DRIVER);<br>            conn = DriverManager.getConnection(URL, USER, PSWD);<br><br>            List&lt;String&gt; ls=getFields(conn,tablename);<br>            Collections.sort(ls);<br>            ls.stream().forEach(table -&gt; System.out.println(table));<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                conn.close();<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title function_">getFields</span><span class="hljs-params">(Connection conn,String tablename)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">DatabaseMetaData</span> <span class="hljs-variable">metaData</span> <span class="hljs-operator">=</span> conn.getMetaData();<br>        <span class="hljs-type">ResultSet</span> <span class="hljs-variable">rs</span> <span class="hljs-operator">=</span> metaData.getColumns(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, tablename+<span class="hljs-string">&quot;%&quot;</span>, <span class="hljs-literal">null</span>);<br>        List&lt;String&gt; ls=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>        <span class="hljs-keyword">while</span> (rs.next()) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">tbName</span> <span class="hljs-operator">=</span> rs.getString(<span class="hljs-string">&quot;TABLE_NAME&quot;</span>); <span class="hljs-comment">// 表名</span><br><br>            <span class="hljs-keyword">if</span>(tbName.equalsIgnoreCase(tablename))&#123;<br>                <span class="hljs-type">String</span> <span class="hljs-variable">columnName</span> <span class="hljs-operator">=</span> rs.getString(<span class="hljs-string">&quot;COLUMN_NAME&quot;</span>); <span class="hljs-comment">// 列名</span><br>                ls.add(columnName);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ls;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>        FieldFinder finder=<span class="hljs-keyword">new</span> <span class="hljs-title class_">FieldFinder</span>();<br>        finder.printFields(<span class="hljs-string">&quot;EMP&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li>【参考资料】</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_34793283/article/details/114109394">https://blog.csdn.net/github_34793283/article/details/114109394</a></p>
-
+<div style="text-align: center;">
+<a target="_blank" rel="noopener" href="https://pan.quark.cn/s/1342161162cc">下载地址>></a>
+</div>
       </section>
 
       
       
         <nav class="article-nav">
           
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-      <div class="card-cover" background-image-lazy data-img="/one.jpg"></div>
-    
-    <div class="card-text">
-      
-        <a href="/2024/04/09/activiti%E9%80%82%E9%85%8D%E4%BA%BA%E5%A4%A7%E9%87%91%E4%BB%93%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">activiti-7.1.0.M6适配人大金仓数据库</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
-      <div class="card-cover" background-image-lazy data-img="/result9.jpg"></div>
+      <div class="card-cover" background-image-lazy data-img="/basketball.jpg"></div>
     
     <div class="card-text">
       
-        <a href="/2024/03/28/%E9%9F%B3%E4%B9%90%E9%89%B4%E8%B5%8F/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">音乐鉴赏</h2>
+        <a href="/2024/05/08/%E8%85%BE%E8%AE%AF%E8%A7%86%E9%A2%91VIP%E8%A7%A3%E6%9E%90/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">腾讯视频VIP解析</h2>
         </a>
       
       <div class="card-text--row">Older</div>
